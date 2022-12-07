@@ -29,7 +29,7 @@ const createAction = async (req, res) => {
     price,
     image
   });
-  
+
   res.redirect('/foods/index');
 
 }
