@@ -1,0 +1,79 @@
+{% extends "layout.njk" %}
+
+{% set title = "Menu" %}
+
+{% block style %}
+<style>
+  .food-actions {
+    cursor: pointer;
+  }
+  .food-actions form {
+    padding-right: 0px;
+    padding-left: 0.5px;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1 class="mt-5 text-center">
+  {{ title }}
+</h1>
+
+<div class="text-right">
+  <form action="/foods/create">
+    <button
+      type="submit"
+      class="btn btn-secondary rounded-circle mr-4 font-weight-bold"
+      id="newBtnFood">
+      +
+    </button>
+  </form>
+</div>
+
+<section class="card-deck my-3">
+  {% for food in foods %}
+  <div class="card-food col-sm-6 col-lg-4 col-xl-3 mb-3" id="food-{{ food.id }}">
+    <div class="card">
+      <div class="card-header text-center font-weight-bold">
+        <span class="food-name">
+          {{ food.name }}
+        </span>
+        <span class="row food-actions float-right">
+          <form class="col" action="/foods/delete" method="get">
+            <input type="hidden" value="{{ food.id }}" name="id">
+            <button type="submit" class="far fa-trash-alt"></button>
+          </form>
+          <form class="col" action="/foods/update" method="get">
+            <input type="hidden" value="{{ food.id }}" name="id">
+            <button type="submit" class="fas fa-pencil-alt"></button>
+          </form>
+        </span>
+      </div>
+      <div class="card-body p-0">
+        <img src="{{ food.image }}" alt="{{ food.name }}" class="w-100">
+      </div>
+      <div class="card-footer text-right">
+        <span class="food-category float-left badge badge-secondary">{{ food.category }}</span>
+        <span class="food-price">{{ food.price }}</span>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</section>
+{% endblock %}
+
+{% block script %}
+<script type="module">
+  function formatCurrency() {
+    const prices = document.querySelectorAll('.card-footer .food-price');
+    prices.forEach((price) => {
+      price.innerHTML = Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+      }).format(price.innerHTML)
+    });
+  }
+
+  formatCurrency();
+</script>
+{% endblock %}

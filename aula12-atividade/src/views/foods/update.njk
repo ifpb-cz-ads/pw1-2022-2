@@ -1,0 +1,36 @@
+{% extends "layout.njk" %}
+
+{% set title = "Atualizar" %}
+
+{% block content %}
+<h1 class="mt-5 text-center">
+  {{ title }}
+</h1>
+
+<div class="col-md-6 mx-auto mb-5">
+  <form id="formFood" action="/foods/update" method="post">
+    <input type="hidden" name="id" value="{{ food.id }}">
+    <div class="mb-3">
+      <label for="food-name">Nome</label>
+      <input type="text" class="form-control" id="food-name" name="name" value="{{ food.name }}">
+    </div>
+    <div class="mb-3">
+      <label for="food-image">Imagem</label>
+      <input type="text" class="form-control" id="food-image" name="image" value="{{ food.image }}">
+    </div>
+    <div class="mb-3">
+      <label for="food-price">Preço</label>
+      <input type="text" class="form-control" id="food-price" name="price" value="{{ food.price }}">
+    </div>
+    <div class="mb-3">
+      <label for="food-category">Categoria</label>
+      <select class="form-control" id="food-category" name="category_id">
+        {% for category in categories %}
+          <option value="{{ category.id }}" {{ "selected" if category.id === food.category_id }}>{{ category.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Atualizar</button>
+  </form>
+</div>
+{% endblock %}

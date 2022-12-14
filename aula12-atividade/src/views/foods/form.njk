@@ -1,0 +1,35 @@
+{% extends "layout.njk" %}
+
+{% set title = "Cadastrar" %}
+
+{% block content %}
+<h1 class="mt-5 text-center">
+  {{ title }}
+</h1>
+
+<div class="col-md-6 mx-auto mb-5">
+  <form id="formFood" action="/foods" method="post">
+    <div class="mb-3">
+      <label for="food-name">Nome</label>
+      <input type="text" class="form-control" id="food-name" name="name">
+    </div>
+    <div class="mb-3">
+      <label for="food-image">Imagem</label>
+      <input type="text" class="form-control" id="food-image" name="image">
+    </div>
+    <div class="mb-3">
+      <label for="food-price">Preço</label>
+      <input type="text" class="form-control" id="food-price" name="price">
+    </div>
+    <div class="mb-3">
+      <label for="food-category">Categoria</label>
+      <select class="form-control" id="food-category" name="category_id">
+        {% for category in categories %}
+          <option value="{{ category.id }}">{{ category.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Cadastrar</button>
+  </form>
+</div>
+{% endblock %}
