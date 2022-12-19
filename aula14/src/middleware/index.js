@@ -13,9 +13,7 @@ const parser = multer({
 
 const isAuthenticated = (req, res, next) => {
   if (req.session.userId) {
-    res.locals.userId = req.session.userId;
-    res.locals.method = req.method;
-    next();
+    return next();
   } else {
     res.redirect('/signin');
   }

@@ -12,7 +12,7 @@ const signin = (req, res) => {
 
 const signout = (req, res) => {
   req.session.destroy();
-  res.locals.authenticated = false;
+  res.locals.user = null;
   res.redirect('/');
 };
 
@@ -40,7 +40,7 @@ const authenticate = async (req, res) => {
   if (user && match) {
     req.session.userId = user.id;
     req.session.flash = {};
-    res.locals.authenticated = true;
+    res.locals.user = user;
     res.redirect('/');
   } else {
     req.session.flash = { error: 'Usuário ou senha inválida' };
